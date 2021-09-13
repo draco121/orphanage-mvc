@@ -30,6 +30,6 @@ namespace OrphanageMVC.Models
         [DisplayName("Contact Number")]
         public string phoneNum { get; set; }
         [DisplayName("Password")]
-        public string password { get; set; }
+        public string Password { get; set; }
     }
 }
