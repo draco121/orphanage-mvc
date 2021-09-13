@@ -160,3 +160,13 @@ C:\Users\rajee\Desktop\New folder\OrphanageMainProject\OrphanageMVC\OrphanageMVC
 C:\Users\rajee\Desktop\New folder\OrphanageMainProject\OrphanageMVC\OrphanageMVC\obj\Debug\OrphanageMVC.csproj.CopyComplete
 C:\Users\rajee\Desktop\New folder\OrphanageMainProject\OrphanageMVC\OrphanageMVC\obj\Debug\OrphanageMVC.dll
 C:\Users\rajee\Desktop\New folder\OrphanageMainProject\OrphanageMVC\OrphanageMVC\obj\Debug\OrphanageMVC.pdb
+C:\Users\rajee\Desktop\New folder\OrphanageMainProject\OrphanageMVC\OrphanageMVC\bin\BCrypt.Net-Next.dll
+C:\Users\rajee\Desktop\New folder\OrphanageMainProject\OrphanageMVC\OrphanageMVC\bin\System.Buffers.dll
+C:\Users\rajee\Desktop\New folder\OrphanageMainProject\OrphanageMVC\OrphanageMVC\bin\System.Memory.dll
+C:\Users\rajee\Desktop\New folder\OrphanageMainProject\OrphanageMVC\OrphanageMVC\bin\System.Numerics.Vectors.dll
+C:\Users\rajee\Desktop\New folder\OrphanageMainProject\OrphanageMVC\OrphanageMVC\bin\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\rajee\Desktop\New folder\OrphanageMainProject\OrphanageMVC\OrphanageMVC\bin\BCrypt.Net-Next.xml
+C:\Users\rajee\Desktop\New folder\OrphanageMainProject\OrphanageMVC\OrphanageMVC\bin\System.Buffers.xml
+C:\Users\rajee\Desktop\New folder\OrphanageMainProject\OrphanageMVC\OrphanageMVC\bin\System.Memory.xml
+C:\Users\rajee\Desktop\New folder\OrphanageMainProject\OrphanageMVC\OrphanageMVC\bin\System.Numerics.Vectors.xml
+C:\Users\rajee\Desktop\New folder\OrphanageMainProject\OrphanageMVC\OrphanageMVC\bin\System.Runtime.CompilerServices.Unsafe.xml

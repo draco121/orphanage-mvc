@@ -4,7 +4,35 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Register Your Orphanage Here!</h2>
+<br />
+<br />
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8 text-center">
+            <div class="card bg-secondary" style="padding:10px">
+                <div class="card-header bg-success">
+                    <h2 class="card-title">
+                        REGISTER HERE   
+                    </h2>
+
+                    @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken();
+                        <div class="form-group form-row">
+                            @Html.LabelFor(m=>m.oRegistrationNum)
+                            @Html.EditorFor(m=>m.oRegistrationNum)
+                        </div>
+            }
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+</div>
+
+
 
 
 @using (Html.BeginForm())
@@ -106,7 +134,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.PasswordFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control", @type ="" } })
                 @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
             </div>
         </div>

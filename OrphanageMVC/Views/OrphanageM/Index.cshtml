@@ -5,60 +5,102 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("New Orphanage Registration", "Create")
-</p>
+<br />
+<br />
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+            <div class="card bg-info" style="padding:10px">
+                <h3 class="text-center"> LOGIN</h3>
+                
+                <hr />
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.oRegistrationNum, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.oRegistrationNum, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.oRegistrationNum, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group ">
+                        @Html.LabelFor(m => m.password, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextBoxFor(m => m.password, htmlAttributes: new { @class = "form-control", @type = "password" })
+                        @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Login" class="btn btn-success" />
+                    </div>
+                }
+
+
+
+            </div>
+        </div>
+        <div class="col-lg-3">
+            @Html.ActionLink("New Orphanage Registration", "Create")
+        </div>
+    </div>
+
+
+</div>
 
 @if (TempData["message"] != null)
 {
     <script>alert('@TempData["message"]');</script>
 }
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+@*<p>
+        @Html.ActionLink("New Orphanage Registration", "Create")
+    </p>
 
-    <div class="form-horizontal">
-        <h4>Orphanage Login</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @if (TempData["message"] != null)
+    {
+        <script>alert('@TempData["message"]');</script>
+    }
+
+                    @using (Html.BeginForm())
+    {
+                        @Html.AntiForgeryToken()
+
+                        <div>
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.oRegistrationNum, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.oRegistrationNum, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.oRegistrationNum, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.oRegistrationNum, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-auto">
+                                    @Html.EditorFor(model => model.oRegistrationNum, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.oRegistrationNum, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-auto">
+                    @Html.PasswordFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Login" class="btn btn-default" />
+                </div>
             </div>
         </div>
+    }
 
-
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.PasswordFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Login" class="btn btn-default" />
-            </div>
-        </div>
+    <div>
+        @Html.ActionLink("Back to List", "Index")
     </div>
-}
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    @section Scripts {
+                        @Scripts.Render("~/bundles/jqueryval")
+    }*@
 
 
 @*<table class="table">
