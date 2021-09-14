@@ -49,6 +49,6 @@ namespace OrphanageMVC.Models
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "this field is required")]
         [DisplayName("Password")]
-        public string password { get; set; }
+        public string Password { get; set; }
     }
 }

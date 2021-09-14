@@ -1,11 +1,15 @@
 ﻿
 using Newtonsoft.Json;
+using OrphanageMVC.Common;
 using OrphanageMVC.Models;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using BCrypt.Net;
+
 namespace OrphanageMVC.Controllers
 {
     public class OrphanageMController : Controller
@@ -61,7 +65,11 @@ namespace OrphanageMVC.Controllers
         [HttpPost]
         public ActionResult Create(OrphanageRegistrationView orp)
         {
+
+            Password EncryptData = new Password();
+            orp.Password = EncryptData.Encode(orp.Password);
             HttpClient hc = new HttpClient();
+
             hc.BaseAddress = new Uri("http://localhost:64581/api/orphanage/register");
             var consumeapi = hc.PostAsJsonAsync("register", orp);
 
@@ -92,10 +100,11 @@ namespace OrphanageMVC.Controllers
             if (ModelState.IsValid)
             {
 
-                FormsAuthentication.SetAuthCookie(orp.oId.ToString(), true);
-                
+                //FormsAuthentication.SetAuthCookie(orp.oId.ToString(), true);
+                Password EncryptData = new Password();
+                orp.Password = EncryptData.Encode(orp.Password);
                 HttpClient hc = new HttpClient();
-                //orp.password = ps;
+
                 hc.BaseAddress = new Uri("http://localhost:64581/api/orphanage/login");
                 var consumeapi = hc.PostAsJsonAsync<OrphanageRegistrationView>("Login", orp);
 
@@ -107,12 +116,12 @@ namespace OrphanageMVC.Controllers
                 {
 
                     TempData["message"] = "Login Successful!";
-                    //return RedirectToAction("Index", "Home");
+                    
                     string res = readdata.Content.ReadAsStringAsync().Result;
                     TempData["token"] = res;
-                    //Console.WriteLine(res);
+                    
                     Session["token"] = res;
-                   // OrphanageRegistrationView resp = JsonConvert.DeserializeObject<OrphanageRegistrationView>(res);
+                    
                     return View("Dashboard");
                 }
                 else
@@ -138,6 +147,7 @@ namespace OrphanageMVC.Controllers
 
             OrphanageRegistrationView orp = JsonConvert.DeserializeObject<OrphanageRegistrationView>(Session["token"].ToString());
             child.oId = orp.oId;
+
             hc.BaseAddress = new Uri("http://localhost:64581/api/orphanage/add/addchild");
             var consumeapi = hc.PostAsJsonAsync<childRegisteration>("addchild", child);
 
@@ -150,7 +160,7 @@ namespace OrphanageMVC.Controllers
 
                 TempData["message"] = "Child Registration Successfull... Please Login!";
                 //return RedirectToAction("Index", "Home");
-                return RedirectToAction("Index");
+                return View("Dashboard");
             }
             else
             {
@@ -158,8 +168,6 @@ namespace OrphanageMVC.Controllers
             }
             return View("Dashboard");
         }
-
-
 
         public ActionResult OrphanageRequirement()
         {
@@ -171,10 +179,11 @@ namespace OrphanageMVC.Controllers
         {
             HttpClient hc = new HttpClient();
 
-
-            child.oId = int.Parse(Session["Oid"].ToString());
-            hc.BaseAddress = new Uri("https://localhost:44309/api/Child");
-            var consumeapi = hc.PostAsJsonAsync<reqTable>("Child", child);
+            OrphanageRegistrationView orp = JsonConvert.DeserializeObject<OrphanageRegistrationView>(Session["token"].ToString());
+            child.oId = orp.oId;
+            child.requirementStatus = "Pending";
+            hc.BaseAddress = new Uri("http://localhost:64581/api/Requirement");
+            var consumeapi = hc.PostAsJsonAsync<reqTable>("Requirement", child);
 
             consumeapi.Wait();
 
@@ -183,11 +192,19 @@ namespace OrphanageMVC.Controllers
             if (readdata.IsSuccessStatusCode)
             {
 
-                TempData["message"] = "Child Registration Successfull... Please Login!";
+                TempData["message"] = "Requirement Added Successfully!";
                 //return RedirectToAction("Index", "Home");
-                return RedirectToAction("Index");
+                return View("Dashboard");
+            }
+            else
+            {
+                TempData["message"] = readdata.StatusCode;
             }
             return View("Dashboard");
         }
+
+
+
+
     }
 }
