@@ -261,3 +261,7 @@ C:\Users\Pallavi\Desktop\MVC\orphanage-mvc\OrphanageMVC\obj\Debug\OrphanageMVC.c
 C:\Users\Pallavi\Desktop\MVC\orphanage-mvc\OrphanageMVC\obj\Debug\OrphanageMVC.csproj.CopyComplete
 C:\Users\Pallavi\Desktop\MVC\orphanage-mvc\OrphanageMVC\obj\Debug\OrphanageMVC.dll
 C:\Users\Pallavi\Desktop\MVC\orphanage-mvc\OrphanageMVC\obj\Debug\OrphanageMVC.pdb
+C:\Users\rajee\Desktop\New folder\OrphanageMainProject\OrphanageMVC\OrphanageMVC\bin\EntityFramework.dll
+C:\Users\rajee\Desktop\New folder\OrphanageMainProject\OrphanageMVC\OrphanageMVC\bin\EntityFramework.SqlServer.dll
+C:\Users\rajee\Desktop\New folder\OrphanageMainProject\OrphanageMVC\OrphanageMVC\bin\EntityFramework.xml
+C:\Users\rajee\Desktop\New folder\OrphanageMainProject\OrphanageMVC\OrphanageMVC\bin\EntityFramework.SqlServer.xml

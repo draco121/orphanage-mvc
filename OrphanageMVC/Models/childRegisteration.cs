@@ -13,11 +13,14 @@ namespace OrphanageMVC
     using OrphanageMVC.Models;
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class childRegisteration
     {
 
         public int CId { get; set; }
+
+        [DisplayName(" First Name ")]
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public Nullable<System.DateTime> BirthDate { get; set; }

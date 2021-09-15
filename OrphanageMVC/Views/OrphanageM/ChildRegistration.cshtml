@@ -7,13 +7,12 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12 mx-auto">
-            <div class="card">
+            <div class="card bg-dark" style="color:white">
                 <div class="card-header" align="center">
-                    <h2>Child Registration</h2>
+                    <h2 class="card-title">Child Registration</h2>
                 </div>
                 <div class="card-body" align="center" >
-                    <img class="card-img" src="https://wallup.net/wp-content/uploads/2016/03/09/164572-digital_art-blue-leaves-pattern-texture-simple-artwork-nature.jpg" alt="Image is not visible"></img>
-                    <div class="card-img-overlay text-white ">
+                    <div >
                         @using (Html.BeginForm())
                         {
                             @Html.AntiForgeryToken()

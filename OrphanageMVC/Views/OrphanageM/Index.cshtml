@@ -1,10 +1,9 @@
 ﻿@*@model IEnumerable<FirstDemo.Models.orphanageRegistration1>*@
-@model OrphanageMVC.Models.OrphanageRegistrationView
+@model OrphanageMVC.Models.LoginModel
 
 @{
     ViewBag.Title = "Index";
 }
-
 
 <br />
 <br />
@@ -16,15 +15,16 @@
                 <div class="card bg-dark" style="padding:10px;color:white; margin:10px;">
                     <h3 class="text-center"> LOGIN</h3>
                     <hr />
-                    <div class="text-center">
-                        <form action="/OrphanageM/Index" method="post" style="display: inline-block">
+                    <div >
+                        @using (Html.BeginForm())
+                        {
                             @Html.AntiForgeryToken()
-                            <div class="form-group ">
+                            <div class="form-group " align="center">
                                 @Html.LabelFor(m => m.oRegistrationNum, htmlAttributes: new { @class = "control-label" })
                                 @Html.TextBoxFor(m => m.oRegistrationNum, htmlAttributes: new { @class = "form-control" })
                                 @Html.ValidationMessageFor(model => model.oRegistrationNum, "", new { @class = "text-danger" })
                             </div>
-                            <div class="form-group">
+                            <div class="form-group" align="center">
                                 @Html.LabelFor(m => m.Password, htmlAttributes: new { @class = "control-label" })
                                 @Html.TextBoxFor(m => m.Password, htmlAttributes: new { @class = "form-control", @type = "password" })
                                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
@@ -32,7 +32,7 @@
                             <div class="form-group">
                                 <input type="submit" value="Login" class="btn btn-success" />
                             </div>
-                        </form>
+                        }
                     </div>
                 </div>
                 <div class="card bg-light" style="padding:10px;color:white">
@@ -48,10 +48,5 @@
 
 
 </div>
-
-@if (TempData["message"] != null)
-{
-    <script>alert('@TempData["message"]');</script>
-}
 
 
