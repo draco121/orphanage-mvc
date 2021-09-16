@@ -356,3 +356,7 @@ C:\Users\win-10\Source\Repos\orphanage-mvc\OrphanageMVC\obj\Debug\OrphanageMVC.c
 C:\Users\win-10\Source\Repos\orphanage-mvc\OrphanageMVC\obj\Debug\OrphanageMVC.csproj.CopyComplete
 C:\Users\win-10\Source\Repos\orphanage-mvc\OrphanageMVC\obj\Debug\OrphanageMVC.dll
 C:\Users\win-10\Source\Repos\orphanage-mvc\OrphanageMVC\obj\Debug\OrphanageMVC.pdb
+C:\Users\win-10\source\repos\orphanage-mvc\OrphanageMVC\bin\EntityFramework.dll
+C:\Users\win-10\source\repos\orphanage-mvc\OrphanageMVC\bin\EntityFramework.SqlServer.dll
+C:\Users\win-10\source\repos\orphanage-mvc\OrphanageMVC\bin\EntityFramework.xml
+C:\Users\win-10\source\repos\orphanage-mvc\OrphanageMVC\bin\EntityFramework.SqlServer.xml
