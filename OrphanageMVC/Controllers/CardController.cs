@@ -15,8 +15,10 @@ namespace OrphanageMVC.Controllers
         public ActionResult Index()
         {
             IEnumerable<OrphanageRegistrationView> all = null;
-            HttpClient hc = new HttpClient();
-            hc.BaseAddress = new Uri("http://localhost:64581/api/HelpingHand");
+            HttpClient hc = new HttpClient
+            {
+                BaseAddress = new Uri("http://localhost:64581/api/HelpingHand")
+            };
             var consumeapi = hc.GetAsync("HelpingHand");
             consumeapi.Wait();
             var readdata = consumeapi.Result;

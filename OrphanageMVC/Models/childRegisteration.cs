@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace OrphanageMVC
+namespace OrphanageMVC.Models
 {
     using Newtonsoft.Json;
     using OrphanageMVC.Models;

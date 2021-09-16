@@ -68,9 +68,10 @@ namespace OrphanageMVC.Controllers
 
             Password EncryptData = new Password();
             orp.Password = EncryptData.Encode(orp.Password);
-            HttpClient hc = new HttpClient();
-
-            hc.BaseAddress = new Uri("http://localhost:64581/api/orphanage/register");
+            HttpClient hc = new HttpClient
+            {
+                BaseAddress = new Uri("http://localhost:64581/api/orphanage/register")
+            };
             var consumeapi = hc.PostAsJsonAsync("register", orp);
 
             consumeapi.Wait();
@@ -107,9 +108,10 @@ namespace OrphanageMVC.Controllers
                 //FormsAuthentication.SetAuthCookie(orp.oId.ToString(), true);
                 Password EncryptData = new Password();
                 orp.Password = EncryptData.Encode(orp.Password);
-                HttpClient hc = new HttpClient();
-
-                hc.BaseAddress = new Uri("http://localhost:64581/api/orphanage/login");
+                HttpClient hc = new HttpClient
+                {
+                    BaseAddress = new Uri("http://localhost:64581/api/orphanage/login")
+                };
                 var consumeapi = hc.PostAsJsonAsync<LoginModel>("Login", orp);
 
                 consumeapi.Wait();
@@ -130,7 +132,7 @@ namespace OrphanageMVC.Controllers
                 }
                 else
                 {
-                    //TempData["message"] = orp.Password;
+                    TempData["msg"] = readdata.Content.ReadAsStringAsync().Result;
                     return View("Index");
                 }
                 
