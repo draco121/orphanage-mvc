@@ -1,18 +1,18 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
 namespace OrphanageMVC.Models
 {
-    public class reqTable
+    public class TransactionTable
     {
-        public int rId { get; set; }
-        public string requirementName { get; set; }
-        public string requirementStatus { get; set; }
+        public int tId { get; set; }
         public int oId { get; set; }
-        
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public decimal Amount { get; set; }
+
         public virtual OrphanageRegistrationView orphanageRegistration1 { get; set; }
     }
 }

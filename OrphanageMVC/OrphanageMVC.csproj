@@ -123,14 +123,19 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Common\Password.cs" />
+    <Compile Include="Controllers\CardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrphanageMController.cs" />
+    <Compile Include="Controllers\VisitController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\childRegisteration.cs" />
     <Compile Include="Models\OrphanageRegistrationView.cs" />
+    <Compile Include="Models\OrphanageVisit.cs" />
     <Compile Include="Models\reqTable.cs" />
+    <Compile Include="Models\TransactionTable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -138,10 +143,14 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="CSS\style.css" />
+    <Content Include="CSS\style1.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="IMG\l2.jpg" />
+    <Content Include="IMG\l3.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -175,6 +184,12 @@
     <Content Include="Views\OrphanageM\ChildRegistration.cshtml" />
     <Content Include="Views\OrphanageM\OrphanageRequirement.cshtml" />
     <Content Include="Views\PageNotFoundError.cshtml" />
+    <Content Include="Views\Card\Donor.cshtml" />
+    <Content Include="Views\Card\Index.cshtml" />
+    <Content Include="Views\Card\Pay.cshtml" />
+    <Content Include="Views\Card\Success.cshtml" />
+    <Content Include="Views\Visit\Adopter.cshtml" />
+    <Content Include="Views\Visit\Success.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

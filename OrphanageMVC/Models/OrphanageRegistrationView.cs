@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -29,7 +30,11 @@ namespace OrphanageMVC.Models
         public string pincode { get; set; }
         [DisplayName("Contact Number")]
         public string phoneNum { get; set; }
+        [DataType(DataType.Password)]
         [DisplayName("Password")]
-        public string password { get; set; }
+        public string Password { get; set; }
     }
+    // public string password { get { return password; } set { password = Common.PassEnDt.Encrypt(value); } }
+
+
 }
