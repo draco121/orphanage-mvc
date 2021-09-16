@@ -203,7 +203,10 @@ namespace OrphanageMVC.Controllers
             return View("Dashboard");
         }
 
-
+       public ActionResult Dashboard()
+        {
+            return View();
+        }
 
 
     }

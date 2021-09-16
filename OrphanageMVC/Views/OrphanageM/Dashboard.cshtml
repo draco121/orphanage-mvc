@@ -1,10 +1,28 @@
 ﻿@model OrphanageMVC.Models.OrphanageRegistrationView
 
+<script>
+    $(document).ready(function () {
+        $("#requirements").click(function () {
+            $.get("http://localhost:64581/api/orphanage/requirement", function (data, status) { //add api in the get.
+                //play around with data here
+                if (status == "success") {
+                    document.getElementById("textrequirement").innerHTML = "<table><tr>< th > Company</th ><th>Contact</th><th>Country</th></tr ></table>";
+                }
+
+            });
+        });
+
+        $("#editachievements").click(function () {
+            $("cash").text("Change");
+            //document.getElementById("achievementeditor").innerHTML = "Hello World!";
+            $("#achievementeditor").html('<form action=""></br>  < input type = "text" name = "achievement" id = "achieve" value = "Write your Goal here" > <input type="submit" value="submit"></form>');
+        });
+    });
+</script>
 @{
     ViewBag.Title = "Dashboard";
 }
 
-<h2>Dashboard</h2>
 
 @if (TempData["message"] != null)
 {
@@ -15,32 +33,30 @@
 <small>@TempData["token"]</small>
 
 <h2>WELCOME </h2>
-<p>WE STRONGER TOGETHER.</p>
+<p>Lets Create a Dream World.</p>
 
 <div class="row">
-    <div class="col-md-6">
-        <h2>Child Registration</h2>
-        <p>
-            Fill all the authenticated information of child .
-        </p>
-        <p><a class="btn btn-default" href="~/OrphanageM/ChildRegistration">Register &raquo;</a></p>
-    </div>
-    <div class="col-md-6">
-        <h2>Requirements</h2>
-        <p>These are the requirements of organization.</p>
-        <p><a class="btn btn-default" href="">Show &raquo;</a></p>
-    </div>
-    <div class="col-md-6">
+    <div class="col-md-12">
         <h2>Achievements of Organization</h2>
         <p>
             This is an Indian non-profit and non-governmental organization that provides care and protection to street and working children in Delhi/NCR.
             It provides residential care, education and skill-building programs, healthcare support, and talent development activities.
         </p>
-
+        <button id="editachievement">Edit</button>
+        <p id="achievementeditor"></p>
     </div>
     <div class="col-md-6">
+        <p><a class="btn btn-default" href="~/OrphanageM/ChildRegistration">Child Registeration &raquo;</a></p>
+    </div>
+    <div class="col-md-6">
+        <h2>Requirements</h2><b id="showrequirements">Show</b>
+        <p id="textrequirement"></p>
+        <h4 class=" btn btn-default">Add Requirment &raquo;</h4>
+    </div>
+
+    <div class="col-md-6">
         <h2>Total Donation Amount</h2>
-        <p>250000</p>
+        <p id="cash"> some text here</p>
 
     </div>
 
@@ -51,11 +67,6 @@
         <p><a class="btn btn-default" href="~/OrphanageM/Index">Logout</a></p>
     </div>
 </div>
-
-<p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
 
 
 
