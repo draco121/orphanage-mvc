@@ -1,0 +1,11 @@
+﻿
+@{
+    ViewBag.Title = "Success";
+}
+
+<h2>Payment Successfull!</h2>
+
+@if (TempData["message"] != null)
+{
+    <script>alert('@TempData["message"]');</script>
+}

@@ -51,4 +51,7 @@ namespace OrphanageMVC.Models
         [DisplayName("Password")]
         public string Password { get; set; }
     }
+    // public string password { get { return password; } set { password = Common.PassEnDt.Encrypt(value); } }
+
+
 }
