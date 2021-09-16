@@ -2,8 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\OrphanageMVC",
-    "\\OrphanageMVC\\Controllers"
+    "\\OrphanageMVC\\Controllers",
+    "\\OrphanageMVC\\Views",
+    "\\OrphanageMVC\\Views\\OrphanageM"
   ],
-  "SelectedNode": "\\OrphanageMVC\\Controllers\\OrphanageMController.cs",
+  "SelectedNode": "\\OrphanageMVC\\Views\\OrphanageM\\Dashboard.cshtml",
   "PreviewInSolutionExplorer": false
 }
