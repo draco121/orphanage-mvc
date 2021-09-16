@@ -1,76 +1,140 @@
-﻿@model OrphanageMVC.Models.OrphanageRegistrationView
-
-<script>
-    $(document).ready(function () {
-        $("#requirements").click(function () {
-            $.get("http://localhost:64581/api/orphanage/requirement", function (data, status) { //add api in the get.
-                //play around with data here
-                if (status == "success") {
-                    document.getElementById("textrequirement").innerHTML = "<table><tr>< th > Company</th ><th>Contact</th><th>Country</th></tr ></table>";
-                }
-
-            });
-        });
-
-        $("#editachievements").click(function () {
-            $("cash").text("Change");
-            //document.getElementById("achievementeditor").innerHTML = "Hello World!";
-            $("#achievementeditor").html('<form action=""></br>  < input type = "text" name = "achievement" id = "achieve" value = "Write your Goal here" > <input type="submit" value="submit"></form>');
-        });
-    });
-</script>
-@{
+﻿@{
     ViewBag.Title = "Dashboard";
 }
 
+<h2>Dashboard</h2>
 
-@if (TempData["message"] != null)
-{
-    <script>alert('@TempData["message"]');</script>
-}
+<br />
+<br />
+<style>
+    .card {
+        margin: 10px !important;
+    }
+</style>
+<div class="container">
+    <h1> WELCOME</h1>
+    <hr />
+    <div class="row">
+        <div class="col">
+            <div class="row">
+                <div class="col">
+                    <div class="card bg-dark" style="color:white">
+                        <div class="card-header">
+                            <h3 class="card-title text-center">Organisation Details</h3>
+                        </div>
+                        <div class="card-body">
+                            <ul>
+                                <li>Organisation Name : @data.oName</li>
+                                <li>Registration Number : @data.oRegistrationNum</li>
+                                <li>Address : @data.addressLine1 @data.addressLine2 @data.city @data.state @data.country @data.pincode</li>
+                                <li>Contact Number : @data.phoneNum</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="card bg-dark" style="color:white">
+                        <div class="card-header">
+                            <h3 class="card-title text-center">
+                                Quick Links
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <ul>
+                                <li><a href="/OrphanageM/ChildRegistration">Add child</a></li>
+                                <li>
+                                    <a href=" " data-toggle="modal" data-target="#reqirement">
+                                        add requirement
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-1">
 
-
-<small>@TempData["token"]</small>
-
-<h2>WELCOME </h2>
-<p>Lets Create a Dream World.</p>
-
-<div class="row">
-    <div class="col-md-12">
-        <h2>Achievements of Organization</h2>
-        <p>
-            This is an Indian non-profit and non-governmental organization that provides care and protection to street and working children in Delhi/NCR.
-            It provides residential care, education and skill-building programs, healthcare support, and talent development activities.
-        </p>
-        <button id="editachievement">Edit</button>
-        <p id="achievementeditor"></p>
-    </div>
-    <div class="col-md-6">
-        <p><a class="btn btn-default" href="~/OrphanageM/ChildRegistration">Child Registeration &raquo;</a></p>
-    </div>
-    <div class="col-md-6">
-        <h2>Requirements</h2><b id="showrequirements">Show</b>
-        <p id="textrequirement"></p>
-        <h4 class=" btn btn-default">Add Requirment &raquo;</h4>
-    </div>
-
-    <div class="col-md-6">
-        <h2>Total Donation Amount</h2>
-        <p id="cash"> some text here</p>
-
-    </div>
-
-
-    <div class="col-md-4">
-        <h2>Helping Hands</h2>
-        <p>If You want to donate / adopt a child Then Click Here!!</p>
-        <p><a class="btn btn-default" href="~/OrphanageM/Index">Logout</a></p>
+        </div>
+        <div class="col">
+            <div class="row">
+                <div class="col">
+                    <div class="card bg-dark" style="color:white">
+                        <div class="card-header">
+                            <h2 class="card-title text-center"> TOTAL DONATIONS </h2>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="text-center"> 12345 $</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="card bg-dark" style="color:white">
+                        <div class="card-header">
+                            <h2 class="card-title text-center">
+                                Other Controls
+                            </h2>
+                        </div>
+                        <div class="card-body">
+                            <ul>
+                                <li><a href="#">Registered Children</a></li>
+                                <li><a href="#">View Donations</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
+<div class="modal fade" id="reqirement" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add Requirement</h5>
+                <button type="button" id="close" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="amount">Amount required</label>
+                        <input type="number" id="amount" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label for="description">description</label>
+                        <textarea placeholder="describe your need for funds here" id="description" class="form-control"></textarea>
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Discard</button>
+                    <button type="button" id="reqsubmit" class="btn btn-primary">Save</button>
+                </div>
+        </div>
+    </div>
+</div>
 
-
-
+<script>
+    $('#reqsubmit').click(() => {
+        var id = @data.oId;
+            //console.log("clicked")
+        var obj = {
+            "description": $("#description").val(),
+                "amount": $("#amount").val(),
+                "status": "pending",
+                "oId": id
+            }
+        $.post("http://localhost:64581/api/orphanage/addRequirement", obj, (status, data) => {
+            $("#close").click();
+            })
+           })
+</script>
 
 
 

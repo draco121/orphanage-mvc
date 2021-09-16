@@ -84,6 +84,10 @@ namespace OrphanageMVC.Controllers
                 //return RedirectToAction("Index", "Home");
                 return RedirectToAction("Index");
             }
+            else
+            {
+                TempData["message"] = readdata.Content.ReadAsStringAsync().Result;
+            }
             return View("Create");
         }
 
@@ -95,7 +99,7 @@ namespace OrphanageMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public  ActionResult Index(OrphanageRegistrationView orp)
+        public  ActionResult Index(LoginModel orp)
         {
             if (ModelState.IsValid)
             {
@@ -106,7 +110,7 @@ namespace OrphanageMVC.Controllers
                 HttpClient hc = new HttpClient();
 
                 hc.BaseAddress = new Uri("http://localhost:64581/api/orphanage/login");
-                var consumeapi = hc.PostAsJsonAsync<OrphanageRegistrationView>("Login", orp);
+                var consumeapi = hc.PostAsJsonAsync<LoginModel>("Login", orp);
 
                 consumeapi.Wait();
 
@@ -115,7 +119,7 @@ namespace OrphanageMVC.Controllers
                 if (readdata.IsSuccessStatusCode)
                 {
 
-                    TempData["message"] = "Login Successful!";
+                    //TempData["message"] = "Login Successful!";
                     
                     string res = readdata.Content.ReadAsStringAsync().Result;
                     TempData["token"] = res;
@@ -126,7 +130,7 @@ namespace OrphanageMVC.Controllers
                 }
                 else
                 {
-                    TempData["message"] = "Login Failed !Enter correct Credentials!";
+                    //TempData["message"] = orp.Password;
                     return View("Index");
                 }
                 
@@ -174,16 +178,17 @@ namespace OrphanageMVC.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult OrphanageRequirement(reqTable child)
+        /*[HttpPost]
+        public ActionResult OrphanageRequirement(int amount)
         {
             HttpClient hc = new HttpClient();
-
+            Requirement org = new Requirement();
             OrphanageRegistrationView orp = JsonConvert.DeserializeObject<OrphanageRegistrationView>(Session["token"].ToString());
-            child.oId = orp.oId;
-            child.requirementStatus = "Pending";
+            org.oId = orp.oId;
+            org.requirementName = amount.ToString();
+            org.requirementStatus = "Pending";
             hc.BaseAddress = new Uri("http://localhost:64581/api/Requirement");
-            var consumeapi = hc.PostAsJsonAsync<reqTable>("Requirement", child);
+            var consumeapi = hc.PostAsJsonAsync<Requirement>("Requirement", org);
 
             consumeapi.Wait();
 
@@ -201,7 +206,7 @@ namespace OrphanageMVC.Controllers
                 TempData["message"] = readdata.StatusCode;
             }
             return View("Dashboard");
-        }
+        }*/
 
        public ActionResult Dashboard()
         {

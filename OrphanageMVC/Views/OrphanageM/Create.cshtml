@@ -8,20 +8,22 @@
 <br />
 <br />
 <div class="container">
+    <h1>@TempData["message"]</h1>
     <div class=" card bg-dark " style="color:white;padding :10px">
         <h2 class="text-center"> REGISTRATION </h2>
         <small> fields marked with <span style="color:#ff0000">*</span> are mandatory</small>
         <hr />
-        <form action="/Create" method="post">
+        @using (Html.BeginForm())
+        { 
             <div class="form-group form-row">
-                <div class="col text-center">
-                    @Html.LabelFor(m => m.oName, new { @class ="required", @for="name" })
+                <div class="col-lg-2 " style="text-align:right">
+                    @Html.LabelFor(m => m.oName, new { @class = "required", @for = "name" })
                 </div>
                 <div class="col text-center">
-                    @Html.EditorFor(m => m.oName, new { htmlAttributes = new { @class = "form-control", @id = "name" } })
+                    @Html.EditorFor(m => m.oName, new { htmlAttributes = new { @class = "form-control", @id = "name"} })
                     @Html.ValidationMessageFor(m => m.oName, "", new { @class = "text-danger" })
                 </div>
-                <div class="col text-center">
+                <div class="col-lg-2" style="text-align:right">
                     @Html.LabelFor(m => m.oRegistrationNum, new { @class = "required", @for = "regno" })
                 </div>
                 <div class="col text-center">
@@ -32,15 +34,15 @@
             <hr />
             <h4>Address Details</h4>
             <div class="form-group form-row">
-                <div class="col text-center">
+                <div class="col-lg-2 " style="text-align:right">
                     @Html.LabelFor(m => m.addressLine1, new { @class = "required", @for = "add1" })
                 </div>
                 <div class="col text-center">
                     @Html.EditorFor(m => m.addressLine1, new { htmlAttributes = new { @class = "form-control", @id = "addl1" } })
                     @Html.ValidationMessageFor(m => m.addressLine1, "", new { @class = "text-danger" })
                 </div>
-                <div class="col text-center">
-                    @Html.LabelFor(m => m.addressLine2,  new { @for = "addl2" } )
+                <div class="col-lg-2 " style="text-align:right">
+                    @Html.LabelFor(m => m.addressLine2, new { @for = "addl2" })
                 </div>
                 <div class="col text-center">
                     @Html.EditorFor(m => m.addressLine2, new { htmlAttributes = new { @class = "form-control", @id = "addl2" } })
@@ -48,13 +50,13 @@
             </div>
             <br />
             <div class="form-group form-row">
-                <div class="col text-center">
-                    @Html.LabelFor(m => m.landmark,  new { @for = "landmark" } )
+                <div class="col-lg-2 " style="text-align:right">
+                    @Html.LabelFor(m => m.landmark, new { @for = "landmark" })
                 </div>
                 <div class="col text-center">
                     @Html.EditorFor(m => m.landmark, new { htmlAttributes = new { @class = "form-control", @id = "landmark" } })
                 </div>
-                <div class="col text-center">
+                <div class="col-lg-2 " style="text-align:right">
                     @Html.LabelFor(m => m.state, new { @class = "required", @for = "state" })
                 </div>
                 <div class="col text-center">
@@ -64,25 +66,28 @@
             </div>
             <br />
             <div class="form-group form-row">
-                <div class="col text-center">
+                <div class="col-lg-2 " style="text-align:right">
                     @Html.LabelFor(m => m.country, new { @class = "required", @for = "country" })
                 </div>
                 <div class="col text-center">
                     @Html.EditorFor(m => m.country, new { htmlAttributes = new { @class = "form-control", @id = "country" } })
                     @Html.ValidationMessageFor(m => m.country, "", new { @class = "text-danger" })
                 </div>
-                <div class="col text-center">
+                <div class="col-lg-2 " style="text-align:right">
                     @Html.LabelFor(m => m.pincode, new { @class = "required", @for = "pincode" })
                 </div>
                 <div class="col text-center">
-                    @Html.EditorFor(m => m.pincode, new { htmlAttributes = new { @class = "form-control", @id = "pincode" } })
+                    @Html.EditorFor(m => m.pincode, new { htmlAttributes = new { @class = "form-control", @id = "pincode", @type="number" } })
                     @Html.ValidationMessageFor(m => m.pincode, "", new { @class = "text-danger" })
                 </div>
-                <div class="col text-center">
+            </div>
+            <br />
+            <div class="form-group form-row">
+                <div class="col-lg-2 " style="text-align:right">
                     @Html.LabelFor(m => m.phoneNum, new { @class = "required", @for = "phone" })
                 </div>
                 <div class="col text-center">
-                    @Html.EditorFor(m => m.phoneNum, new { htmlAttributes = new { @class = "form-control", @id = "phone" } })
+                    @Html.EditorFor(m => m.phoneNum, new { htmlAttributes = new { @class = "form-control", @id = "phone", @type = "number" } })
                     @Html.ValidationMessageFor(m => m.phoneNum, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -90,24 +95,25 @@
             <h4> set password</h4>
             <hr />
             <div class="form-group form-row">
-                <div class="col text-center">
+                <div class="col-lg-2 " style="text-align:right">
                     @Html.LabelFor(m => m.Password, new { @class = "required", @for = "password" })
                 </div>
                 <div class="col text-center">
-                    @Html.EditorFor(m => m.Password, new { htmlAttributes = new { @class = "form-control", @id = "passoword" } })
+                    @Html.EditorFor(m => m.Password, new { htmlAttributes = new { @class = "form-control", @id = "password", @type = "password" } })
                     @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                 </div>
-                <div class="col text-center">
+                <div class="col-lg-2 " style="text-align:right">
                     <label for="cpass" class="required">confirm password</label>
                 </div>
                 <div class="col text-center">
                     <input type="password" class="form-control" id="cpass" />
+                    <small class="text-danger" hidden id="validmsg">password does not match</small>
                 </div>
             </div>
             <div class="text-center">
-                <button class="btn btn-primary" type="submit">submit</button>
+                <button class="btn btn-primary" type="submit" onclick="validatepass()">submit</button>
             </div>
-        </form>
+        }
     </div>
 </div>
 
@@ -122,6 +128,21 @@
         color: red;
     }
 </style>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+    function validatepass() {
+        var pass = $("#password").val();
+        var cpass = $("#cpass").val();
+        if (pass !== cpass) {
+            //console.log("not match")
+            $("#validmsg").removeAttr("hidden");
+            $("#validmsg").show();
+        } else {
+            $("#validmsg").hide();
+        }
+        console.log(pass);
+    }
+</script>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
