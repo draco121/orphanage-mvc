@@ -1,0 +1,123 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+
+* {
+    font-family: 'Poppins',sans-serif !important;
+}
+
+p,h1,h2,h3,h4,label {
+    color:dimgrey;
+}
+
+html {
+    min-height: 100%;
+}
+
+body {
+    background-image: url(/assets/bgimage.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.crd {
+    margin:10px;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.25);
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter:blur(5px);
+}
+
+.shadow {
+    box-shadow: 0 3px 3px rgba(0,0,0,0.25);
+}
+
+.button {
+    height: 45px;
+    margin: 35px 0px;
+}
+.form-control:focus {
+    outline:none;
+    border-color: #9b59b6 !important;
+}
+.button input {
+        height: 100%;
+        width: 100%;
+        border-radius: 5px;
+        border: none;
+        color: #fff;
+        font-size: 18px;
+        font-weight: 500;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background: linear-gradient(135deg, #71b7e6, #9b59b6);
+    }
+
+.button input:hover {
+            /* transform: scale(0.99); */
+            background: linear-gradient(-135deg, #71b7e6, #9b59b6);
+        }
+
+ .title {
+    position: relative;
+}
+
+.title::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 3px;
+        width: 30px;
+        border-radius: 5px;
+        background: linear-gradient(135deg, #71b7e6, #9b59b6);
+    }
+
+.banner {
+    background: url(/assets/bannerimg.jpg) no-repeat center fixed rgba(0, 0, 0, 0.8);
+    background-size: cover;
+    background-blend-mode: multiply;
+    min-height: 400px;
+    border-radius: 5px;
+    padding: 30px;
+}
+
+.btng {
+    flex: 1 1 auto;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: grey;
+    /* text-shadow: 0px 0px 10px rgba(0,0,0,0.2);*/
+    box-shadow: 0 0 20px #eee;
+    border-radius: 3px;
+}
+
+    /* Demo Stuff End -> */
+
+    /* <- Magic Stuff Start */
+
+    .btng:hover {
+        background-position: right center; /* change the direction of the change here */
+    }
+
+.btn-red {
+    background-image: linear-gradient(to right, #f6d365 0%, #fda085 51%, #f6d365 100%);
+}
+
+.btn-blue {
+    background-image: linear-gradient(to right, #fbc2eb 0%, #a6c1ee 51%, #fbc2eb 100%);
+}
+
+.btn-green {
+    background-image: linear-gradient(to right, #84fab0 0%, #8fd3f4 51%, #84fab0 100%);
+}
+
+
+a{
+    text-decoration:none;
+}

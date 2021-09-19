@@ -2,130 +2,201 @@
     ViewBag.Title = "Dashboard";
 }
 
-@{
-    string token = Session["token"].ToString();
-    OrphanageMVC.Models.OrphanageRegistrationView data = Json.Decode<OrphanageMVC.Models.OrphanageRegistrationView>(token);
-}
-<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+@{ 
+    OrphanageMVC.Models.OrphanageRegistrationView data = new OrphanageMVC.Models.OrphanageRegistrationView();
+    if (Session["token"] != null)
+    {
 
-<br />
-<br />
-<style>
-    .card {
-        margin: 10px !important;
+        string token = Session["token"].ToString();
+        data = Json.Decode<OrphanageMVC.Models.OrphanageRegistrationView>(token);
+
     }
-</style>
-<div class="container">
-    <h1> WELCOME</h1>
-    <hr />
+    else if(Session["orpinfo"]!=null)
+    {
+        string orpinfo = Session["orpinfo"].ToString();
+        data = Json.Decode<OrphanageMVC.Models.OrphanageRegistrationView>(orpinfo);
+
+    }
+
+
+}
+
+
+<div class="container-fluid crd">
+    @{ if (Session["token"] != null)
+        {
+            <h1> WELCOME,</h1><h3>@data.oName</h3>
+        }
+        else
+        {
+            <h1>@data.oName</h1>
+            <p>Address : @data.addressLine1 @data.addressLine2 @data.city @data.pincode @data.state @data.country </p>
+            <h3>Phone : @data.phoneNum</h3>
+        }
+    }
+
     <div class="row">
         <div class="col">
-            <div class="row">
-                <div class="col">
-                    <div class="card bg-dark" style="color:white">
-                        <div class="card-header">
-                            <h3 class="card-title text-center">Organisation Details</h3>
-                        </div>
-                        <div class="card-body">
-                            <ul>
-                                <li>Organisation Name : @data.oName</li>
-                                <li>Registration Number : @data.oRegistrationNum</li>
-                                <li>Address : @data.addressLine1 @data.addressLine2 @data.city @data.state @data.country @data.pincode</li>
-                                <li>Contact Number : @data.phoneNum</li>
-                            </ul>
-                        </div>
-                    </div>
+            <div class="crd" style="height:450px">
+                <h2 class="title">Donations</h2>
+                <small> Total Donations : &#x20b9 <span id="totaldonations"></span></small>
+                <hr />
+                <div style="height:300px;overflow:scroll">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Txn Id</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody id="donations">
+                        </tbody>
+                    </table>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="card bg-dark" style="color:white">
-                        <div class="card-header">
-                            <h3 class="card-title text-center">
-                                Quick Links
-                            </h3>
-                        </div>
-                        <div class="card-body">
-                            <ul>
-                                <li><a href="/OrphanageM/ChildRegistration">Add child</a></li>
-                                <li>
-                                    <a href=" " data-toggle="modal" data-target="#reqirement">
-                                        add requirement
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-1">
 
+            </div>
         </div>
         <div class="col">
-            <div class="row">
-                <div class="col">
-                    <div class="card bg-dark" style="color:white">
-                        <div class="card-header">
-                            <h2 class="card-title text-center"> TOTAL DONATIONS </h2>
-                        </div>
-                        <div class="card-body">
-                            <h1 class="text-center"> 12345 $</h1>
-                        </div>
-                    </div>
+            <div class="crd" style="height:450px">
+                <h2 class="title">Requirements</h2>
+                <small>funds required : &#x20b9 <span id="totalreq"></span> </small>
+                @{
+                    if (Session["token"] != null)
+                    {
+
+
+                        <span><a class="btng btn-green shadow" href="" data-toggle="modal" data-target="#addreqmodal" style="border-radius:10px;">Add Requirement</a></span>
+
+                    }
+                    else
+                    {
+                        <span><a class="btng btn-green shadow" href="@Url.Action("Donor","Card",new {id = data.oId })" style="border-radius:10px;">Donate </a></span>
+
+                    }
+                }
+                <hr />
+                <div style="height:300px;overflow:scroll">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Amount</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="requirement">
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <div class="row">
-                <div class="col">
-                    <div class="card bg-dark" style="color:white">
-                        <div class="card-header">
-                            <h2 class="card-title text-center">
-                                Other Controls
-                            </h2>
-                        </div>
-                        <div class="card-body">
-                            <ul>
-                                <li><a href="#">Registered Children</a></li>
-                                <li><a href="#">View Donations</a></li>
-                            </ul>
-                        </div>
-                    </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="crd" style="height:450px">
+                <h2 class="title">Adoption</h2>
+                <small>These Children are Looking For Parents</small>
+                @{
+                    if (Session["token"] != null)
+                    {
+
+
+                        <span><a class="btng btn-green shadow" style="border-radius:10px;" href="@Url.Action("ChildRegistration","OrphanageM",new { oid = data.oId })">Add Child</a></span>
+
+                    }
+                    else
+                    {
+                        <span><a class="btng btn-green shadow" href="@Url.Action("Adopter","Visit",new { id = data.oId })" style="border-radius:10px;">Schedule Visit </a></span>
+
+                    }
+                }
+                <hr />
+                <div style="height:300px;overflow:scroll">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">D.O.B</th>
+                                <th scope="col">Gender</th>
+                                <th scope="col">Age (years)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="children">
+                        </tbody>
+                    </table>
                 </div>
             </div>
+        </div>
+        <div class="col">
+            @if(Session["token"]!=null)
+            {
+            <div class="crd" style="height:450px">
+                <h2 class="title">Scheduled Visits</h2>
+                <hr />
+                <div style="height:300px;overflow:scroll">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">Date of Visit</th>
+                                <th scope="col">Time of Visit</th>
+                            </tr>
+                        </thead>
+                        <tbody id="visit">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            }
+            
         </div>
     </div>
 </div>
 
-<div class="modal fade" id="reqirement" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
+
+
+<div class="modal fade" id="addreqmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content crd" style="background-color:transparent">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Add Requirement</h5>
-                <button type="button" id="close" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                <h5 class="modal-title title text-white" id="exampleModalLabel">Add Requirement</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"style="color:red">&times;</span>
                 </button>
             </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="amount">Amount required</label>
-                        <input type="number" id="amount" class="form-control" />
-                    </div>
-                    <div class="form-group">
-                        <label for="description">description</label>
-                        <textarea placeholder="describe your need for funds here" id="description" class="form-control"></textarea>
-                    </div>
-                    
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="description" style="color:white">Description</label>
+                    <input type="text" id="description" class="form-control" />
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Discard</button>
-                    <button type="button" id="reqsubmit" class="btn btn-primary">Save</button>
+                <div class="form-group">
+                    <label for="description" style="color:white">Amount</label>
+                    <input type="number" id="amount" class="form-control" />
                 </div>
+            </div>
+            <div class="modal-footer">
+                <a class="btng btn-red" id="close" data-dismiss="modal">Close</a>
+                <a  class="btng btn-blue" onclick="postreq()">Save changes</a>
+            </div>
         </div>
     </div>
 </div>
 
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
 <script>
-    $('#reqsubmit').click(() => {
+
+    $("document").ready(function () {
+        getdonations();
+        getrequirements();
+        getchildren();
+        getvisitors();
+    })
+    function postreq() {
         var id = @data.oId;
             //console.log("clicked")
         var obj = {
@@ -134,10 +205,75 @@
                 "status": "pending",
                 "oId": id
             }
-        $.post("http://localhost:64581/api/orphanage/addRequirement", obj, (status, data) => {
-            $("#close").click();
+        $.post("http://localhost:64581/api/orphanage/addRequirement", obj, (data,status) => {
+            if (status === "success") {
+                alert("requirement added succesfully")
+                $("#close").click();
+            }
+
             })
-           })
+    }
+
+    function getdonations() {
+        var id = @data.oId;
+        var totaldonations = 0;
+        $.get("http://localhost:64581/api/metrics/totaldonationsbyid/" + id, (data) => {
+            //console.log(data);
+            for (var i = 0; i < data.length; i++) {
+               totaldonations += data[i].Amount;
+                var markup = "<tr><td>" + data[i].tId + "</td><td>" + data[i].Name + "</td><td>" + data[i].Email + "</td><td>" + data[i].Amount + "</td></tr>"
+                $("#donations").append(markup);
+            }
+            totaldonations = Number(totaldonations).toLocaleString("en");
+            $("#totaldonations").text(totaldonations)
+        })
+    }
+
+    function getrequirements() {
+        var id = @data.oId;
+        var requirement = 0;
+        $.get("http://localhost:64581/api/helpinghand/Requirement?id=" + id, (data) => {
+            //console.log(data);
+            for (var i = 0; i < data.length; i++) {
+                requirement += data[i].amount;
+                var date = new Date(data[i].date).toLocaleDateString();
+                var markup = "<tr><td>" + data[i].amount + "</td><td>" + data[i].description + "</td><td>" + date + "</td><td>" + data[i].status + "</td></tr>"
+                $("#requirement").append(markup);
+            }
+            requirement = Number(requirement).toLocaleString("en");
+            $("#totalreq").text(requirement)
+        })
+    }
+
+    function getchildren() {
+        var id = @data.oId;
+        $.get("http://localhost:64581/api/orphanage/children/" + id, (data) => {
+            //console.log(data);
+            for (var i = 0; i < data.length; i++) {
+                var dob = new Date(data[i].BirthDate);
+                var currdate = new Date();
+                var difftime = currdate - dob
+                var ageyears = Math.ceil(difftime / (1000 * 60 * 60 * 24 * 365));
+                var markup = "<tr><td>" + data[i].FirstName + " " + data[i].LastName + "</td><td>" + + "</td><td>" + dob.toLocaleDateString() + "</td><td>" + data[i].Gender + "</td><td>" + ageyears + "</td></tr>"
+                $("#children").append(markup);
+            }
+
+        })
+    }
+
+    function getvisitors() {
+        var id = @data.oId;
+        $.get("http://localhost:64581/api/metrics/scheduledvisits/" + id, (data) => {
+            //0sole.log(data);
+            for (var i = 0; i < data.length; i++) {
+                var date = new Date(data[i].aScheduledDate).toLocaleDateString();
+                var time = new Date(data[i].aScheduledTime).getTime();
+                var markup = "<tr><td>" + data[i].aName + "</td><td>" + data[i].aContactNumber + "</td><td>" + date + "</td><td>" + time + "</td></tr>"
+                $("#visit").append(markup);
+            }
+
+        })
+    }
 </script>
 
 

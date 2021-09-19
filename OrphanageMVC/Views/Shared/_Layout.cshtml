@@ -4,36 +4,53 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/Content/Mycss.css" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
 </head>
-<body>
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top">
+<body >
+    <nav class="navbar navbar-expand-sm navbar-light fixed-top crd">
         <div class="container">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand" href="/">ASHRAY</a>
+            <a class="navbar-brand" href="/">
+                <img src="~/assets/logo-nav.png" alt="logo" style="width:70px" />
+            </a>
             <div class="navbar-collapse collapse" id="navbarSupportedContent">
                 <ul class="nav navbar-nav mr-auto">
                     <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
-                    <li class="nav-item"><a href="/" class="nav-link">Explore</a></li>
-                    <li class="nav-item"><a href="/Home/Contact" class="nav-link">Donate</a></li>
+                    <li class="nav-item"><a href="/Card/Index" class="nav-link">Explore</a></li>
                 </ul>
 
-                <ul class="nav navbar-nav navbar-right mr-auto">
-                    <li class="nav-item"><a href="/Account/Register" id="registerLink" class="nav-link">Register</a></li>
-                    <li class="nav-item"><a href="/Account/Login" id="loginLink" class="nav-link">Log in</a></li>
-                </ul>
+                @{
+                    HttpContext context = HttpContext.Current;
+                    if (Session["token"] == null)
+                    {
+                        <ul class="nav navbar-nav navbar-right mr-auto">
+                            <li class="nav-item"><a href="/OrphanageM/Create" class="nav-link">Orphanage Register</a></li>
+                            <li class="nav-item"><a href="/OrphanageM/Index" class="nav-link">Orphanage Login</a></li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <ul class="nav navbar-nav navbar-right mr-auto">
+                            <li class="nav-item"><a href="@{context.Session["token"]= null;  Url.Action("Index", "OrphanageM");} " class="nav-link"> Logout </a></li>
+</ul>
+                    }
+                }
+
 
             </div>
         </div>
     </nav>
-    <div class="container body-content">
+    <div class="container-fluid body-content">
+        <br />
+        <br />
+        <br />
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")

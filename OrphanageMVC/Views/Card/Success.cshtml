@@ -5,6 +5,7 @@
 
 <h2>Payment Successfull!</h2>
 
+<p>@TempData["message"]</p>
 @if (TempData["message"] != null)
 {
     <script>alert('@TempData["message"]');</script>

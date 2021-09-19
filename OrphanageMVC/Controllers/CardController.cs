@@ -15,51 +15,69 @@ namespace OrphanageMVC.Controllers
         public ActionResult Index()
         {
             IEnumerable<OrphanageRegistrationView> all = null;
-            HttpClient hc = new HttpClient
+                HttpClient hc = new HttpClient
+                {
+                    BaseAddress = new Uri("http://localhost:64581/api/HelpingHand")
+                };
+                var consumeapi = hc.GetAsync("HelpingHand");
+            var readdata = new HttpResponseMessage();
+            try
             {
-                BaseAddress = new Uri("http://localhost:64581/api/HelpingHand")
-            };
-            var consumeapi = hc.GetAsync("HelpingHand");
-            consumeapi.Wait();
-            var readdata = consumeapi.Result;
+                consumeapi.Wait();
+                readdata = consumeapi.Result;
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Error", "Error", new { p = e.Message });
+            }
+
             if (readdata.IsSuccessStatusCode)
-            {
-                var displaydata = readdata.Content.ReadAsAsync<IList<OrphanageRegistrationView>>();
-
-                displaydata.Wait();
-
-                all = displaydata.Result;
-            }
-            else
-            {
-                all = Enumerable.Empty<OrphanageRegistrationView>();
-                ModelState.AddModelError(string.Empty, "Server Error Occured!");
-            }
-
-
-            return View(all);
-            
+                {
+                    var displaydata = readdata.Content.ReadAsAsync<IList<OrphanageRegistrationView>>();
+                    displaydata.Wait();
+                    all = displaydata.Result;
+                }
+                else
+                {
+                    if(readdata.StatusCode == System.Net.HttpStatusCode.NotFound)
+                    {
+                        all = Enumerable.Empty<OrphanageRegistrationView>();
+                        ModelState.AddModelError(string.Empty, "Server Error Occured!");
+                    }
+                    else
+                    {
+                        var error = readdata.Content.ReadAsStringAsync().Result;
+                        return RedirectToAction("Error", "Error", new { p = error });
+                    }
+                    
+                }
+                return View(all);
         }
-        //public ActionResult Donor()
-        //{
-        //    return View();
+        
 
-        //}
-        // [HttpPost]
+
+
         public ActionResult Donor(int id)
         {
-            TempData["message"] = id;
-            IEnumerable<reqTable> all = null;
-            //reqTable req = new reqTable();
-            //req.oId = id;
-
-            HttpClient hc = new HttpClient();
-            string id1 = id.ToString();
-            string MainURI = "http://localhost:64581/api/helpinghand/Requirement";
-            hc.BaseAddress = new Uri(MainURI);
-            var consumeapi = hc.GetAsync("?id="+id1);
+            
+                IEnumerable<reqTable> all = null;
+                HttpClient hc = new HttpClient();
+                string id1 = id.ToString();
+                string MainURI = "http://localhost:64581/api/helpinghand/Requirement";
+                hc.BaseAddress = new Uri(MainURI);
+                var consumeapi = hc.GetAsync("?id=" + id1);
             consumeapi.Wait();
-            var readdata = consumeapi.Result;
+            var readdata = new HttpResponseMessage();
+            try
+            {
+                consumeapi.Wait();
+                readdata = consumeapi.Result;
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Error", "Error", new { p = e });
+            }
+
             if (readdata.IsSuccessStatusCode)
             {
                 var displaydata = readdata.Content.ReadAsAsync<IList<reqTable>>();
@@ -70,17 +88,25 @@ namespace OrphanageMVC.Controllers
             }
             else
             {
-                all = Enumerable.Empty<reqTable>();
-                ModelState.AddModelError(string.Empty, "Server Error Occured!");
+                if(readdata.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    all = Enumerable.Empty<reqTable>();
+                    ModelState.AddModelError(string.Empty, "Server Error Occured!");
+                }
+                else
+                {
+                    string error = readdata.Content.ReadAsStringAsync().Result;
+                    return RedirectToAction("Error", "Error", new { p = error });
+                }
+                
             }
 
 
             return View(all);
-            //return View();
 
         }
 
-        public ActionResult Dummy(int id, TransactionTable tt)
+        public ActionResult Dummy(int oid,string id, TransactionTable tt)
         {
 
             if (tt.Amount == 0)
@@ -90,29 +116,37 @@ namespace OrphanageMVC.Controllers
             else
             {
                 HttpClient hc = new HttpClient();
-                tt.oId = id;
+                tt.rId = id;
+                tt.oId = oid;
+                tt.tId = Guid.NewGuid().ToString();
                 hc.BaseAddress = new Uri("http://localhost:64581/api/Pay");
                 var consumeapi = hc.PostAsJsonAsync("Pay", tt);
-
                 consumeapi.Wait();
+                var readdata = new HttpResponseMessage();
+                try
+                {
+                    consumeapi.Wait();
+                    readdata = consumeapi.Result;
+                }
+                catch (Exception e)
+                {
+                    return RedirectToAction("Error", "Error", new { p = e });
+                }
 
-                var readdata = consumeapi.Result;
 
                 if (readdata.IsSuccessStatusCode)
                 {
-
-                    TempData["message"] = "Payment Successfull!!";
-                    //return RedirectToAction("Index", "Home");
+                    TempData["message"] = "your transaction id :" + tt.tId;
                     return View("Success");
                 }
-                return View("Success");
+                else
+                {
+                    var error = readdata.Content.ReadAsStringAsync().Result;
+                    return RedirectToAction("Error", "Error", new { p = error });
+                }
+                
             }
-
-
             }
-
-        
-
 
 
 

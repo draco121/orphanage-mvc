@@ -2,7 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\OrphanageMVC",
-    "\\OrphanageMVC\\App_Start"
+    "\\OrphanageMVC\\App_Start",
+    "\\OrphanageMVC\\Controllers",
+    "\\OrphanageMVC\\Views",
+    "\\OrphanageMVC\\Views\\OrphanageM",
+    "\\OrphanageMVC\\Views\\Shared"
   ],
+  "SelectedNode": "\\OrphanageMVC\\Views\\OrphanageM\\ChildRegistration.cshtml",
   "PreviewInSolutionExplorer": false
 }

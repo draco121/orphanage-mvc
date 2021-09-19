@@ -2,46 +2,60 @@
     ViewBag.Title = "Home Page";
 }
 
-<style>
-    .info {
-        color: navajowhite;
-        font-weight: 500;
-    }
-</style>
-
-<div class="container" style="background: url('https://img.freepik.com/free-photo/little-kids-cheering-while-holding-white-board_53876-97648.jpg?size=626&ext=jpg') no-repeat;background-size:cover">
-
-    <div class="jumbotron text-center" style="background-color: transparent">
-        <h1>Welcome to<br /> आश्रय <br /></h1>
-        <p class="lead">
-            we connect orphanages to common people, orphanages who want help can connect with us
-            we help them fulfill their needs,
-        </p>
-        <p class="lead">want to do some charity?? you are at the right place explore all the listed orphanages and help them</p>
-
+<div class="container-fluid">
+    <div class="banner text-center">
+        <img src="~/assets/logobanner.png" style="width:300px; margin-top:100px;" />
+        <h3 style="color:wheat">welcome to आश्रय ,<br /> Online platform which connect people to orphanages around the world<br /> and provoide help those orphanages</h3>
+        <h3 style="color:wheat">Are you looking for funding for your orphanage?<br /> Do want to do some charity by funding some orphanages?<br /> Do you want to adopt a child?<br /></h3>
+        <h1 style="color:wheat">You are at the right Place...</h1>
     </div>
-
+</div>
+<hr />
+<div class="container">
     <div class="row">
-
-        <div class="col-lg-6" style="opacity:0.8">
-            <div class="card text-center" style="background-color:lightgrey; padding:20px; min-height:200px">
-                <h2>Orphanages</h2>
-                <p>
-                    need help in funding and adoption?
-                    You can Register/Login Your orphanages Here!!
-                </p>
-                <p><a class="btn btn-success" href="~/OrphanageM/Index">Login </a></p>
+        <div class="col">
+            <div class="crd text-center">
+                <p>Explore the Orphanages which are listed on our platform </p>
+                <p>If you want to do some charity or want to adopt a child</p>
+                <div class="button">
+                    <a href="/Card/Index"><input type="button" value="explore >>" class="btn" /></a>
+                </div>
             </div>
         </div>
-        <div class="col-lg-6">
-            <div class="card text-center" style="background-color: lightgrey; padding: 20px; min-height: 200px;opacity:0.8">
-                <h2>Helping Hands</h2>
-                <p>If You want to donate something or want to adopt a child</p>
-                <p><a class="btn btn-primary" href="~/Card/Index">explore</a></p>
+        <div class="col">
+            <div class="crd text-center">
+                <p>Login as an organisation</p>
+                <p>And laverage the services</p>
+                <div class="button">
+                    <a href="/OrphanageM/Index"><input type="button" value="Login" class="btn" /></a>
+                </div>
             </div>
         </div>
     </div>
-    <hr />
-    <br />
-
+</div>
+<hr/>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <div class="crd" style="height:190px">
+                <h2 class="title">Total Amount Donated</h2>
+                 <hr />
+                 <h1 class="text-center">&#x20b9 2,00,000 </h1>
+            </div>
+        </div>
+        <div class="col">
+            <div class="crd" style="height:190px">
+                <h2 class="title">Total  Registered Organisations</h2>
+                <hr />
+                <h1 class="text-center">200</h1>
+            </div>
+        </div>
+        <div class="col">
+            <div class="crd" style="height:190px">
+                <h2 class="title">Total number of Donations</h2>
+                <hr />
+                <h1 class="text-center">200</h1>
+            </div>
+        </div>
+    </div>
 </div>

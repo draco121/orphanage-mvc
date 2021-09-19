@@ -22,12 +22,22 @@ namespace OrphanageMVC.Models
 
         [DisplayName(" First Name ")]
         public string FirstName { get; set; }
+
+        [DisplayName(" Last Name ")]
         public string LastName { get; set; }
+
+        [DisplayName("Date Of Birth")]
         public Nullable<System.DateTime> BirthDate { get; set; }
+
+        [DisplayName(" Gender ")]
         public string Gender { get; set; }
         //[JsonIgnore]
         public int oId { get; set; }
+
+        [DisplayName(" Nationality ")]
         public string Nationality { get; set; }
+
+        [DisplayName("Date of Admission")]
         public Nullable<System.DateTime> DateAdmitted { get; set; }
 
         //[JsonIgnore]

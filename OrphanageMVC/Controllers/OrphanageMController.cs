@@ -14,43 +14,7 @@ namespace OrphanageMVC.Controllers
 {
     public class OrphanageMController : Controller
     {
-        ////GET: OrphanageM
-        //public ActionResult Index()
-        //{
-        //    IEnumerable<OrphanageRegistrationView> orpObj = null;
-
-        //    using(var hc=new HttpClient())
-        //    {
-        //        hc.BaseAddress = new Uri("https://localhost:44309/api/Orphanage");
-        //        var consumeapi = hc.GetAsync("Orphanage");
-        //        consumeapi.Wait();
-        //        var readdata = consumeapi.Result;
-        //        if (readdata.IsSuccessStatusCode)
-        //        {
-        //            var displaydata = readdata.Content.ReadAsAsync<IList<OrphanageRegistrationView>>();
-
-        //            displaydata.Wait();
-
-        //            orpObj = displaydata.Result;
-        //        }
-        //        else
-        //        {
-        //            orpObj = Enumerable.Empty<OrphanageRegistrationView>();
-        //            ModelState.AddModelError(string.Empty, "Server Error Occured!");
-        //        }
-        //    }
-        //    //HttpClient hc = new HttpClient();
-
-
-
-
-
-
-
-
-
-        //    return View(orpObj);
-        //}
+        
 
         public ActionResult Index()
         {
@@ -73,10 +37,16 @@ namespace OrphanageMVC.Controllers
                 BaseAddress = new Uri("http://localhost:64581/api/orphanage/register")
             };
             var consumeapi = hc.PostAsJsonAsync("register", orp);
-
             consumeapi.Wait();
-
-            var readdata = consumeapi.Result;
+            var readdata = new HttpResponseMessage();
+            try
+            {
+                readdata = consumeapi.Result;
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Error", "Error", new { p = e });
+            }
 
             if (readdata.IsSuccessStatusCode)
             {
@@ -87,9 +57,10 @@ namespace OrphanageMVC.Controllers
             }
             else
             {
-                TempData["message"] = readdata.Content.ReadAsStringAsync().Result;
+                string error = readdata.Content.ReadAsStringAsync().Result;
+                return RedirectToAction("Error", "Error", new { p = error });
             }
-            return View("Create");
+
         }
 
 
@@ -114,30 +85,43 @@ namespace OrphanageMVC.Controllers
                 };
                 var consumeapi = hc.PostAsJsonAsync<LoginModel>("Login", orp);
 
-                consumeapi.Wait();
-
-                var readdata = consumeapi.Result;
+            
+            var readdata = new HttpResponseMessage();
+                try
+                {
+                    consumeapi.Wait();
+                    readdata = consumeapi.Result;
+                }
+                catch (Exception e)
+                {
+                    return RedirectToAction("Error", "Error", new { p = e});
+            }
 
                 if (readdata.IsSuccessStatusCode)
                 {
-
-                    //TempData["message"] = "Login Successful!";
                     
                     string res = readdata.Content.ReadAsStringAsync().Result;
                     TempData["token"] = res;
-                    
+
                     Session["token"] = res;
                     
                     return View("Dashboard");
                 }
                 else
                 {
-                    TempData["msg"] = readdata.Content.ReadAsStringAsync().Result;
-                    return View("Index");
+                    if(readdata.StatusCode == System.Net.HttpStatusCode.NotFound)
+                    {
+                       return  RedirectToAction("Error", "Error", "User Not Found");
+                    }
+                    else
+                    {
+                        string error = readdata.Content.ReadAsStringAsync().Result;
+                        return RedirectToAction("Error", "Error", error);
+                    }
                 }
                 
             }
-            return View("Create");
+            return View("Index");
         }
 
 
@@ -147,19 +131,23 @@ namespace OrphanageMVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult ChildRegistration(childRegisteration child)
+        public ActionResult ChildRegistration(int oid,childRegisteration child)
         {
             HttpClient hc = new HttpClient();
-
-            OrphanageRegistrationView orp = JsonConvert.DeserializeObject<OrphanageRegistrationView>(Session["token"].ToString());
-            child.oId = orp.oId;
-
+            
+            child.oId = oid;
             hc.BaseAddress = new Uri("http://localhost:64581/api/orphanage/add/addchild");
             var consumeapi = hc.PostAsJsonAsync<childRegisteration>("addchild", child);
-
             consumeapi.Wait();
-
-            var readdata = consumeapi.Result;
+            var readdata = new HttpResponseMessage();
+            try
+            {
+                readdata = consumeapi.Result;
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Error", "Error", new { p = e });
+            }
 
             if (readdata.IsSuccessStatusCode)
             {
@@ -170,15 +158,48 @@ namespace OrphanageMVC.Controllers
             }
             else
             {
-                TempData["message"] = readdata.StatusCode;
+                string error = readdata.Content.ReadAsStringAsync().Result;
+                return RedirectToAction("Error", "Error", error);
             }
-            return View("Dashboard");
+
         }
 
-        public ActionResult OrphanageRequirement()
+        public ActionResult Dashboard(int id)
         {
-            return View();
+            HttpClient hc = new HttpClient
+            {
+                BaseAddress = new Uri("http://localhost:64581/api/orphanage/orphanagebyid/}")
+            };
+            var consumeapi = hc.GetAsync("?id="+id.ToString());
+            consumeapi.Wait();
+            var readdata = new HttpResponseMessage();
+            try
+            {
+                readdata = consumeapi.Result;
+            }
+            catch (Exception e)
+            {
+                return RedirectToAction("Error", "Error", new { p = e });
+            }
+
+            if (readdata.IsSuccessStatusCode)
+            {
+
+                //TempData["message"] = "Login Successful!";
+
+                string res = readdata.Content.ReadAsStringAsync().Result;
+
+                Session["orpinfo"] = res;
+
+                return View();
+            }
+            else
+            {
+                string error = readdata.Content.ReadAsStringAsync().Result;
+                return RedirectToAction("Error", "Error", error);
+            }
         }
+
 
         /*[HttpPost]
         public ActionResult OrphanageRequirement(int amount)
