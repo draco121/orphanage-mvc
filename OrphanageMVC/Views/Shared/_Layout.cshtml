@@ -26,18 +26,20 @@
 
                 @{
                     HttpContext context = HttpContext.Current;
-                    if (Session["token"] == null)
+                    if (User.Identity.IsAuthenticated)
+                    {
+                                <ul class="nav navbar-nav navbar-right mr-auto">
+                                    <li class="nav-item"><a href="@Url.Action("SignOut", "OrphanageM")" class="nav-link"> Logout </a></li>
+                                    <li class="nav-item"><a href="@Url.Action("Dashboard", "OrphanageM",new { id = Convert.ToInt32(User.Identity.Name) })" class="nav-link"> Dashboard </a></li>
+                                </ul>
+                        
+                    }
+                    else
                     {
                         <ul class="nav navbar-nav navbar-right mr-auto">
                             <li class="nav-item"><a href="/OrphanageM/Create" class="nav-link">Orphanage Register</a></li>
                             <li class="nav-item"><a href="/OrphanageM/Index" class="nav-link">Orphanage Login</a></li>
                         </ul>
-                    }
-                    else
-                    {
-                        <ul class="nav navbar-nav navbar-right mr-auto">
-                            <li class="nav-item"><a href="@{context.Session["token"]= null;  Url.Action("Index", "OrphanageM");} " class="nav-link"> Logout </a></li>
-</ul>
                     }
                 }
 
@@ -52,7 +54,49 @@
         @RenderBody()
         <hr />
     </div>
-
+    <footer>
+        <div class="container-fluid">
+            <div class="row crd">
+                <div class="col">
+                    <p>Get in touch with us</p>
+                    <hr />
+                    <p>
+                        68, Kandewadi, Khadilkar Road, C.p.tank
+                        ,Mumbai
+                        ,Maharashtra
+                        ,	400004
+                        <b> Phone Number	02266359408</b>
+                    </p>
+                </div>
+                <div class="col">
+                    <div class="crd">
+                        <h4 class="title">Made with &#x2764; by</h4>
+                        <div class="row">
+                            <div class="col">
+                                <ul>
+                                    <li><p>Rajeev Chourey</p></li>
+                                    <li><p>Pallavi Vanarse</p></li>
+                                    <li><p>Zahid Ansari</p></li>
+                                </ul>
+                            </div>
+                            <div class="col">
+                                <ul>
+                                    <li><p>Sonali Jadhav</p></li>
+                                    <li><p>Shweta Chindhe</p></li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="button">
+                        <input type="button" onclick="location.href='@Url.Action("Index","Home")'" class="btn" value="Back to home" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

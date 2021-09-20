@@ -20,14 +20,14 @@ namespace OrphanageMVC.Models
         [DisplayName("Contact Number")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "this field is required")]
         public string aContactNumber { get; set; }
-        public System.DateTime aCurrenntDate { get; set; }
+        public DateTime aCurrenntDate { get; set; }
 
         [DisplayName("Date of appointment")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "this field is required")]
-        public string aScheduleDate { get; set; }
+        public DateTime aScheduleDate { get; set; }
         [DisplayName("Time of appointment")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "this field is required")]
-        public string aScheduleTime { get; set; }
+        public System.DateTime aScheduleTime { get; set; }
         public int oId { get; set; }
 
         public virtual OrphanageRegistrationView orphanageRegistration1 { get; set; }

@@ -3,11 +3,11 @@
 }
 
 @{ 
-    OrphanageMVC.Models.OrphanageRegistrationView data = new OrphanageMVC.Models.OrphanageRegistrationView();
-    if (Session["token"] != null)
+   @* OrphanageMVC.Models.OrphanageRegistrationView data = new OrphanageMVC.Models.OrphanageRegistrationView();
+    if (@ViewBag.data != null)
     {
 
-        string token = Session["token"].ToString();
+        string token = @ViewBag.data.ToString();
         data = Json.Decode<OrphanageMVC.Models.OrphanageRegistrationView>(token);
 
     }
@@ -16,14 +16,14 @@
         string orpinfo = Session["orpinfo"].ToString();
         data = Json.Decode<OrphanageMVC.Models.OrphanageRegistrationView>(orpinfo);
 
-    }
-
+    }*@
+        OrphanageMVC.Models.OrphanageRegistrationView data = ViewBag.data;
 
 }
 
 
 <div class="container-fluid crd">
-    @{ if (Session["token"] != null)
+    @{ if (User.Identity.IsAuthenticated)
         {
             <h1> WELCOME,</h1><h3>@data.oName</h3>
         }
@@ -45,10 +45,11 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">Txn Id</th>
+
                                 <th scope="col">Name</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Amount</th>
+                                <th scope="col">Txn Id</th>
                             </tr>
                         </thead>
                         <tbody id="donations">
@@ -63,7 +64,7 @@
                 <h2 class="title">Requirements</h2>
                 <small>funds required : &#x20b9 <span id="totalreq"></span> </small>
                 @{
-                    if (Session["token"] != null)
+                    if (User.Identity.IsAuthenticated)
                     {
 
 
@@ -101,7 +102,7 @@
                 <h2 class="title">Adoption</h2>
                 <small>These Children are Looking For Parents</small>
                 @{
-                    if (Session["token"] != null)
+                    if (User.Identity.IsAuthenticated)
                     {
 
 
@@ -132,7 +133,7 @@
             </div>
         </div>
         <div class="col">
-            @if(Session["token"]!=null)
+            @if(User.Identity.IsAuthenticated)
             {
             <div class="crd" style="height:450px">
                 <h2 class="title">Scheduled Visits</h2>
@@ -143,8 +144,8 @@
                             <tr>
                                 <th scope="col">Name</th>
                                 <th scope="col">Address</th>
-                                <th scope="col">Date of Visit</th>
-                                <th scope="col">Time of Visit</th>
+                                <th scope="col">Contact NO.</th>
+                                <th scope="col">Date of visit</th>
                             </tr>
                         </thead>
                         <tbody id="visit">
@@ -220,8 +221,8 @@
         $.get("http://localhost:64581/api/metrics/totaldonationsbyid/" + id, (data) => {
             //console.log(data);
             for (var i = 0; i < data.length; i++) {
-               totaldonations += data[i].Amount;
-                var markup = "<tr><td>" + data[i].tId + "</td><td>" + data[i].Name + "</td><td>" + data[i].Email + "</td><td>" + data[i].Amount + "</td></tr>"
+                totaldonations += data[i].Amount;
+                var markup = "<tr><td>" + data[i].Name + "</td><td>" + data[i].Email + "</td><td>" + data[i].Amount + "</td><td>" + data[i].tId + "</td></tr>"
                 $("#donations").append(markup);
             }
             totaldonations = Number(totaldonations).toLocaleString("en");
@@ -254,7 +255,7 @@
                 var currdate = new Date();
                 var difftime = currdate - dob
                 var ageyears = Math.ceil(difftime / (1000 * 60 * 60 * 24 * 365));
-                var markup = "<tr><td>" + data[i].FirstName + " " + data[i].LastName + "</td><td>" + + "</td><td>" + dob.toLocaleDateString() + "</td><td>" + data[i].Gender + "</td><td>" + ageyears + "</td></tr>"
+                var markup = "<tr><td>" + data[i].FirstName + " " + data[i].LastName + "</td><td>" + dob.toLocaleDateString() + "</td><td>" + data[i].Gender + "</td><td>" + ageyears + "</td></tr>"
                 $("#children").append(markup);
             }
 
@@ -264,11 +265,10 @@
     function getvisitors() {
         var id = @data.oId;
         $.get("http://localhost:64581/api/metrics/scheduledvisits/" + id, (data) => {
-            //0sole.log(data);
+            console.log(data);
             for (var i = 0; i < data.length; i++) {
-                var date = new Date(data[i].aScheduledDate).toLocaleDateString();
-                var time = new Date(data[i].aScheduledTime).getTime();
-                var markup = "<tr><td>" + data[i].aName + "</td><td>" + data[i].aContactNumber + "</td><td>" + date + "</td><td>" + time + "</td></tr>"
+                var date = new Date(data[i].aScheduleDate).toLocaleDateString();
+                var markup = "<tr><td>" + data[i].aName + "</td><td>" + data[i].aAddress + "</td><td>" + data[i].aContactNumber + "</td><td>" + date+ "</td></tr>"
                 $("#visit").append(markup);
             }
 

@@ -2,11 +2,18 @@
     ViewBag.Title = "Home Page";
 }
 
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script>
+    $("document").ready(function () {
+        getfrontpageinfo();
+    })
+</script>
 <div class="container-fluid">
     <div class="banner text-center">
         <img src="~/assets/logobanner.png" style="width:300px; margin-top:100px;" />
-        <h3 style="color:wheat">welcome to आश्रय ,<br /> Online platform which connect people to orphanages around the world<br /> and provoide help those orphanages</h3>
-        <h3 style="color:wheat">Are you looking for funding for your orphanage?<br /> Do want to do some charity by funding some orphanages?<br /> Do you want to adopt a child?<br /></h3>
+        <h3 style="color:wheat">Welcome to आश्रय ,<br /> Online platform which connect people to orphanages around the world<br /> and provide help those orphanages</h3>
+        <h3 style="color:wheat">Are you looking for funding for your orphanage?<br /> Want to do some charity by funding some orphanages?<br /> Want to adopt a child?<br /></h3>
         <h1 style="color:wheat">You are at the right Place...</h1>
     </div>
 </div>
@@ -23,13 +30,30 @@
             </div>
         </div>
         <div class="col">
-            <div class="crd text-center">
-                <p>Login as an organisation</p>
-                <p>And laverage the services</p>
-                <div class="button">
-                    <a href="/OrphanageM/Index"><input type="button" value="Login" class="btn" /></a>
-                </div>
-            </div>
+            @{
+                if (User.Identity.IsAuthenticated)
+                {
+                    <div class="crd text-center">
+                        <br />
+                        <p>Go to Dashboard</p>
+                        <div class="button">
+                            <a href="@Url.Action("Dashboard","OrphanageM",new {id = Convert.ToInt32(User.Identity.Name) })"><input type="button" value="Dashboard" class="btn" /></a>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="crd text-center">
+                        <p>Login as an organisation</p>
+                        <p>And laverage the services</p>
+                        <div class="button">
+                            <a href="/OrphanageM/Index"><input type="button" value="Login" class="btn" /></a>
+                        </div>
+                    </div>
+                }
+            }
+
+
         </div>
     </div>
 </div>
@@ -40,22 +64,33 @@
             <div class="crd" style="height:190px">
                 <h2 class="title">Total Amount Donated</h2>
                  <hr />
-                 <h1 class="text-center">&#x20b9 2,00,000 </h1>
+                 <h1 class="text-center">&#x20b9  <span id="totaldonations"></span></h1>
             </div>
         </div>
         <div class="col">
             <div class="crd" style="height:190px">
                 <h2 class="title">Total  Registered Organisations</h2>
                 <hr />
-                <h1 class="text-center">200</h1>
+                <h1 class="text-center" id="totalorphanages"></h1>
             </div>
         </div>
         <div class="col">
             <div class="crd" style="height:190px">
                 <h2 class="title">Total number of Donations</h2>
                 <hr />
-                <h1 class="text-center">200</h1>
+                <h1 class="text-center" id="totalnumberofdonations"></h1>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    function getfrontpageinfo() {
+        $.get("http://localhost:64581/api/metrics/frontpageinfo", (data) => {
+            //console.log(data);
+            $("#totaldonations").text(Number(data.totaldonation).toLocaleString("en"));
+            $('#totalorphanages').text(data.count);
+            $('#totalnumberofdonations').text(data.donation);
+        })
+    }
+</script>

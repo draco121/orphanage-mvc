@@ -9,9 +9,9 @@ namespace OrphanageMVC.Controllers
     public class ErrorController : Controller
     {
         // GET: Error
-        public ActionResult Error(string e)
+        public ActionResult Error(string p)
         {
-            ViewBag.message = e;
+            ViewBag.message = p;
             return View();
         }
     }

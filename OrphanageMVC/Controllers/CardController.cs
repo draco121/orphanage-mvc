@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace OrphanageMVC.Controllers
 {
     public class CardController : Controller
@@ -106,9 +107,8 @@ namespace OrphanageMVC.Controllers
 
         }
 
-        public ActionResult Dummy(int oid,string id, TransactionTable tt)
+        public ActionResult Dummy(int oid,string id,TransactionTable tt)
         {
-
             if (tt.Amount == 0)
             {
                 return View("Pay");

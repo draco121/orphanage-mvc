@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Security.Policy;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -70,7 +71,8 @@ namespace OrphanageMVC.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[OutputCache(NoStore =true, Duration =0,VaryByParam ="none")]
+        //[ValidateAntiForgeryToken]
         public  ActionResult Index(LoginModel orp)
         {
             if (ModelState.IsValid)
@@ -86,7 +88,7 @@ namespace OrphanageMVC.Controllers
                 var consumeapi = hc.PostAsJsonAsync<LoginModel>("Login", orp);
 
             
-            var readdata = new HttpResponseMessage();
+                var readdata = new HttpResponseMessage();
                 try
                 {
                     consumeapi.Wait();
@@ -100,12 +102,9 @@ namespace OrphanageMVC.Controllers
                 if (readdata.IsSuccessStatusCode)
                 {
                     
-                    string res = readdata.Content.ReadAsStringAsync().Result;
-                    TempData["token"] = res;
-
-                    Session["token"] = res;
-                    
-                    return View("Dashboard");
+                    OrphanageRegistrationView res = readdata.Content.ReadAsAsync<OrphanageRegistrationView>().Result;
+                    FormsAuthentication.SetAuthCookie(res.oId.ToString(), false);
+                    return RedirectToAction("Dashboard",new { id = res.oId});
                 }
                 else
                 {
@@ -116,7 +115,7 @@ namespace OrphanageMVC.Controllers
                     else
                     {
                         string error = readdata.Content.ReadAsStringAsync().Result;
-                        return RedirectToAction("Error", "Error", error);
+                        return RedirectToAction("Error", "Error", new {p=error.ToString() });
                     }
                 }
                 
@@ -154,7 +153,7 @@ namespace OrphanageMVC.Controllers
 
                 TempData["message"] = "Child Registration Successfull... Please Login!";
                 //return RedirectToAction("Index", "Home");
-                return View("Dashboard");
+                return RedirectToAction("Dashboard",new {id = oid });
             }
             else
             {
@@ -187,9 +186,9 @@ namespace OrphanageMVC.Controllers
 
                 //TempData["message"] = "Login Successful!";
 
-                string res = readdata.Content.ReadAsStringAsync().Result;
+                OrphanageRegistrationView res = readdata.Content.ReadAsAsync<OrphanageRegistrationView>().Result;
 
-                Session["orpinfo"] = res;
+                ViewBag.data = res;
 
                 return View();
             }
@@ -198,6 +197,14 @@ namespace OrphanageMVC.Controllers
                 string error = readdata.Content.ReadAsStringAsync().Result;
                 return RedirectToAction("Error", "Error", error);
             }
+        }
+
+
+        public ActionResult SignOut()
+        {
+            FormsAuthentication.SignOut();
+            Session.Abandon();
+            return RedirectToAction("Index");
         }
 
 

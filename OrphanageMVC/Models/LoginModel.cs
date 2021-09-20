@@ -10,7 +10,7 @@ namespace OrphanageMVC.Models
     public class LoginModel
     {
         [Required(AllowEmptyStrings = false, ErrorMessage = "this field is required")]
-        [DisplayName("registraion number")]
+        [DisplayName("registraion Id")]
         public string oRegistrationNum { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "this field is required")]

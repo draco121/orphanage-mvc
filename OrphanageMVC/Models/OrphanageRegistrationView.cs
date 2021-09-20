@@ -16,7 +16,7 @@ namespace OrphanageMVC.Models
         public string oName { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "this field is required")]
-        [DisplayName("Registration Number")]
+        [DisplayName("Registration Id")]
         public string oRegistrationNum { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "this field is required")]

@@ -9,32 +9,39 @@
             <div class="row">
                 @foreach (var item in Model)
                 {
+                    decimal? percent = 0;
+                    percent = (item.Deposited / item.amount) *100;
+                    if (percent > 100)
+                    {
+                        percent = 100;
+                    }
+
                     @*<div class="col-sm-4 py-3 py-sm-3">*@
                    <div class="col-lg-6">
                        <div class="crd">
-                           <h1>Amount : @item.amount</h1>
+                           <h1>Amount : &#x20b9 @item.amount</h1>
                            <hr />
                            <p>Description : @item.description</p>
                            <small>Date: @item.date.Date</small>
+                           <br />
+                           <small> Status: @item.status</small>
                            <hr />
                            <div class="row">
                                <div class="col-lg-2">
-                                   <a href="@Url.Action("Dummy", "Card", new {oid =item.oId, id = @item.Id })" class="btn btn-green">Pay</a>
+                                   <a href="@Url.Action("Dummy", "Card", new {oid =item.oId, id = item.Id })" class="btn btn-green">Pay</a>
                                </div>
                                <div class="col">
+                                   <small class="title">deposited: &#x20b9 @item.Deposited</small>
+                                   <br />
+                                   <small class="title">@percent % completed</small>
                                    <div class="progress">
-                                       <div class="progress-bar" style="width:10%"></div>
+                                       <div class="progress-bar" style="width:@percent.ToString()%"></div>
                                    </div>
                                </div>
                            </div>
                        </div>
                    </div>
                 }
-
-
-
-
-
 
             </div>
         </div>
@@ -51,3 +58,9 @@
     }
 
 }
+
+<script src="~/Scripts/jquery-3.4.1.min.js">
+</script>
+<script>
+   
+</script>
