@@ -10,6 +10,7 @@ p,h1,h2,h3,h4,label {
 
 html {
     min-height: 100%;
+    position: relative;
 }
 
 body {
@@ -17,6 +18,9 @@ body {
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
+    margin: 0 0 100px;
+    /* bottom = footer height */
+    padding: 25px;
 }
 
 .crd {
@@ -120,4 +124,11 @@ body {
 
 a{
     text-decoration:none;
+}
+
+.footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
 }

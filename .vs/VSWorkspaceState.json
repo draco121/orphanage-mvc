@@ -5,9 +5,10 @@
     "\\OrphanageMVC\\App_Start",
     "\\OrphanageMVC\\Controllers",
     "\\OrphanageMVC\\Views",
+    "\\OrphanageMVC\\Views\\Card",
     "\\OrphanageMVC\\Views\\OrphanageM",
     "\\OrphanageMVC\\Views\\Shared"
   ],
-  "SelectedNode": "\\OrphanageMVC\\Web.config",
+  "SelectedNode": "\\OrphanageMVC\\Views\\Card\\Donor.cshtml",
   "PreviewInSolutionExplorer": false
 }
